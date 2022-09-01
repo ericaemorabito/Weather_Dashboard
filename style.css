@@ -1,0 +1,18 @@
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+}
+
+#left_side {
+  text-align: center;
+  background-color: blue;
+  width: 40%;
+}
+
+#right_side {
+  text-align: center;
+  background-color: red;
+  width: 60%;
+}
