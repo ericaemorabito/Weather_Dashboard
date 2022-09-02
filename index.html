@@ -8,43 +8,28 @@
   <title>Weather Dashboard</title>
   <!-- CSS Linked -->
   <link rel="stylesheet" href="./style.css">
+  <!-- FONT AWESOME -->
+  <script src="https://kit.fontawesome.com/4f231a1c2d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <main>
 
     <!-- Search bar and search history-->
-    <section id="left_side">
-      <h1>Search</h1>
-      <form>
-        <input type="text" placeholder="Search a city">
+    <section id="search_side">
+      <h1>Search for a city</h1>
+      <form id="search_form">
+        <input id="search_input" type="text" placeholder="City">
+        <button id="search_btn"><i class="fa-solid fa-magnifying-glass-location"></i></button>
       </form>
-      <button>Search</button>
+      <!-- Display buttons for search history-->
+      <div id="search_history"></div>
     </section>
 
     <!-- Display city's weather side -->
-    <section id="right_side">
-      <!-- Current weather card-->
-      <section id="current_weather">
-        <h2 class="city">City</h2>
-        <p class="temp">Temperature</p>
-        <p class="icon">Icon</p>
-        <p class="wind">Wind</p>
-        <p class="humidity">Humidity</p>
-        <p class="UV">UV Index</p>
-      </section>
-
-      <!-- 5 Day future forecast-->
-      <section class="future_weather">
-        <h3 class="date">Date</h3>
-        <p class="temp">Temperature</p>
-        <p class="icon">Icon</p>
-        <p class="wind">Wind</p>
-        <p class="humidity">Humidity</p>
-        <p class="UV">UV Index</p>
-      </section>
-
-    </section>
+    <section id="weather_results"></section>
+    <!-- Display 5 day forecast-->
+    <section id="future_forecast"></section>
   </main>
 
   <!--JS linked-->

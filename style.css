@@ -5,13 +5,13 @@ main {
   height: 100vh;
 }
 
-#left_side {
+#search_side {
   text-align: center;
   background-color: blue;
   width: 40%;
 }
 
-#right_side {
+#weather_results {
   text-align: center;
   background-color: red;
   width: 60%;
