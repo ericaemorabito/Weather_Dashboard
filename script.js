@@ -42,7 +42,7 @@ var searchLocationApi = function (city) {
       return lat, lon
     })
 
-    .then(function (lat, lon) {
+    .then(function ({ lat, lon }) {
       searchWeatherApi(lat, lon);
     })
 
