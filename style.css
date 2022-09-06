@@ -7,12 +7,12 @@ main {
 
 #search_side {
   text-align: center;
-  background-color: blue;
+  background-color: #fef6e4;
   width: 40%;
 }
 
 #weather_results {
   text-align: center;
-  background-color: red;
+  background-color: #8bd3dd;
   width: 60%;
 }

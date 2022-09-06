@@ -1,44 +1,79 @@
 var searchBtn = document.getElementById('search_btn');
-var apiKey = '928970293a8d368de2efde06eb94ad93';
-var lat;
-var lon;
-var searchInputVal;
+var apiKey = 'b4c2d5a0bd9132aa04a18c9591435161';
+//var lat;
+//var lon;
+var city;
 
-//Submit Event
+//Search for a city
 searchBtn.addEventListener('click', function () {
   event.preventDefault();
   //Get the value of the search input
-  var searchInputVal = document.getElementById('search_input').value;
-  console.log(searchInputVal)
+  var city = document.getElementById('search_input').value;
+  console.log(city);
   //if nothing in input - error and return
-  if (!searchInputVal) {
+  if (!city) {
     console.error('You need a search input value!');
     return;
   }
-  //Run the search
-  searchApi();
+  //Run the searches
+  searchLocationApi(city);
+  //searchWeatherApi(lat, lon);
 });
 
-//var getParams = function () {}
+var searchLocationApi = function (city) {
+  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
 
-//
-
-//! In progress!
-var searchApi = function (searchInputVal) {
-  var lat = searchInputVal;
-  var lon = searchInputVal;
-  var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly,alerts&appid=${apiKey}`;
-
-  fetch(weatherUrl)
+  fetch(locationUrl)
+    //If no response --> throw, if response --> .json()
     .then(function (response) {
-      //Bad response --> return
       if (!response.ok) {
         throw response.json();
       }
 
       return response.json();
     })
-    //Okay response --> log response okay
+
+    //If there's a response --> get value of lon and lat
+    .then(function (response) {
+      console.log(response);
+      lon = response[0].lon
+      console.log(window.lon);
+      //window.lon = response[0].lon
+      lat = response[0].lat
+      console.log(lat)
+      //window.lat = response[0].lat
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+console.log(lon);
+console.log(lat);
+
+//! In progress
+/*var fiveDayForecast = function (lat, lon) {
+
+}*/
+
+//! In progress
+var lat;
+var lon;
+var searchWeatherApi = function (lat, lon) {
+  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,daily,alerts&appid=' + apiKey + '&units=imperial';
+  //https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+
+  fetch(weatherUrl)
+    // If no response, throw else return .json()
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
+
+    //Okay response --> log 'response okay' and the response
     .then(function (response) {
       if (response.ok) {
         console.log('response okay')
@@ -51,7 +86,7 @@ var searchApi = function (searchInputVal) {
     })
 };
 
-var printWeather = function () {
+var displayWeather = function () {
   var weatherCard = document.createElement('div'); //create div for today's weather
   weatherCard.setAttribute('id', 'weather_card');
   var weatherResultsArea = document.getElementById('weather_results');
@@ -76,6 +111,8 @@ var printWeather = function () {
   var forecastArea = document.getElementById('future_forecast');
   forecastArea.appendChild(forecastCard); //append card to forecast <section>
 };
-printWeather();
+displayWeather();
 
 //var storeSearchHistory = function (){}
+
+//var displaySearchHistory = function(){}
