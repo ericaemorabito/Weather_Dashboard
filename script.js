@@ -1,7 +1,7 @@
 var searchBtn = document.getElementById('search_btn');
-var apiKey = 'b4c2d5a0bd9132aa04a18c9591435161';
-//var lat;
-//var lon;
+var apiKey = '3d47432ac7c1ab60b051887d54809883';
+var lat;
+var lon;
 var city;
 
 //Search for a city
@@ -17,14 +17,13 @@ searchBtn.addEventListener('click', function () {
   }
   //Run the searches
   searchLocationApi(city);
-  //searchWeatherApi(lat, lon);
 });
 
+//Run search for lat and long
 var searchLocationApi = function (city) {
   locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
 
   fetch(locationUrl)
-    //If no response --> throw, if response --> .json()
     .then(function (response) {
       if (!response.ok) {
         throw response.json();
@@ -33,15 +32,18 @@ var searchLocationApi = function (city) {
       return response.json();
     })
 
-    //If there's a response --> get value of lon and lat
     .then(function (response) {
       console.log(response);
-      lon = response[0].lon
-      console.log(window.lon);
-      //window.lon = response[0].lon
       lat = response[0].lat
-      console.log(lat)
-      //window.lat = response[0].lat
+      lon = response[0].lon
+      console.log(lat);
+      console.log(lon);
+
+      return lat, lon
+    })
+
+    .then(function (lat, lon) {
+      searchWeatherApi(lat, lon);
     })
 
     .catch(function (error) {
@@ -49,23 +51,13 @@ var searchLocationApi = function (city) {
     });
 }
 
-console.log(lon);
-console.log(lat);
-
 //! In progress
-/*var fiveDayForecast = function (lat, lon) {
-
-}*/
-
-//! In progress
-var lat;
-var lon;
 var searchWeatherApi = function (lat, lon) {
-  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,daily,alerts&appid=' + apiKey + '&units=imperial';
+  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey;
+  //var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + apiKey;
   //https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
   fetch(weatherUrl)
-    // If no response, throw else return .json()
     .then(function (response) {
       if (!response.ok) {
         throw response.json();
@@ -73,14 +65,12 @@ var searchWeatherApi = function (lat, lon) {
       return response.json();
     })
 
-    //Okay response --> log 'response okay' and the response
     .then(function (response) {
       if (response.ok) {
         console.log('response okay')
         console.log(response);
       }
     })
-    //Error --> log error
     .catch(function (error) {
       console.log(error);
     })
