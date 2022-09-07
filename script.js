@@ -1,5 +1,9 @@
 var searchBtn = document.getElementById('search_btn');
-var apiKey = '3d47432ac7c1ab60b051887d54809883';
+var apiKey1 = '3d47432ac7c1ab60b051887d54809883';
+//var apiKey2 = '6044df7e3d35bf2ed292ff3acf2fe4d5';
+//var apiKey3 = 'bcc18f73623f3ffe4a20dc2347f8d70b';
+var apiKeyTry = '6071c23bf014278d29b48f559c2f9755';
+var apiKeyNew = 'd7313885a60d7c6813f8bd855485255a';
 var lat;
 var lon;
 var city;
@@ -21,7 +25,7 @@ searchBtn.addEventListener('click', function () {
 
 //Run search for lat and long
 var searchLocationApi = function (city) {
-  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
+  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKeyNew;
 
   fetch(locationUrl)
     .then(function (response) {
@@ -39,7 +43,10 @@ var searchLocationApi = function (city) {
       console.log(lat);
       console.log(lon);
 
-      return lat, lon
+      return {
+        lat: lat,
+        lon: lon
+      };
     })
 
     .then(function ({ lat, lon }) {
@@ -51,11 +58,8 @@ var searchLocationApi = function (city) {
     });
 }
 
-//! In progress
 var searchWeatherApi = function (lat, lon) {
-  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey;
-  //var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + apiKey;
-  //https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + apiKeyTry;
 
   fetch(weatherUrl)
     .then(function (response) {
@@ -65,18 +69,36 @@ var searchWeatherApi = function (lat, lon) {
       return response.json();
     })
 
-    .then(function (response) {
-      if (response.ok) {
-        console.log('response okay')
-        console.log(response);
-      }
+    .then(function (data) {
+      console.log('response okay')
+      console.log(data);
+      this.displayWeather(data);
     })
+
     .catch(function (error) {
       console.log(error);
     })
 };
 
-var displayWeather = function () {
+//! In progress
+var displayWeather = function (data) {
+  console.log(data)
+
+  //Get all current Data
+  var currentTempData = data.current.temp + '°F';
+  var currentIconData = data.current.weather.icon;
+  var currentWindData = 'Wind: ' + data.current.weather.wind_speed + 'm/hr';
+  var currentHumidityData = 'Humidity: ' + data.current.humidity + '%';
+  var currentUviData = 'UV Index: ' + data.current.uvi;
+
+  //TODO; testing
+  console.log(currentTempData)
+  console.log(currentWindData)
+  console.log(currentIconData)
+  console.log(currentHumidityData)
+  console.log(currentUviData)
+
+  //Create and fill in weather card
   var weatherCard = document.createElement('div'); //create div for today's weather
   weatherCard.setAttribute('id', 'weather_card');
   var weatherResultsArea = document.getElementById('weather_results');
@@ -96,12 +118,37 @@ var displayWeather = function () {
   //date.textContent = ...
   //
 
-  var forecastCard = document.createElement('div'); //create div for forecasts
-  forecastCard.setAttribute('id', 'forecast_card');
-  var forecastArea = document.getElementById('future_forecast');
-  forecastArea.appendChild(forecastCard); //append card to forecast <section>
+  /*  //TODO: Get all forecast data
+    for (let i = 0; i === 5; i++) {
+      var forecastTempData = data.daily[i].temp.day + '°F';
+      var forecastIconData = data.daily[i].weather[0].icon;
+      var forecastHumidityData = data.daily[i].humidity;
+      var forecastWindData = data.daily[i].weather.wind_speed;
+      var forecastUviData = data.daily[i].uvi;
+  
+      //TODO: testing --> each should be an array or object
+      console.log(forecastTempData);
+      console.log(forecastIconData);
+      console.log(forecastHumidityData);
+      console.log(forecastWindData);
+      console.log(forecastUviData);
+  
+      //TODO: Create and fill in forecast data
+      var forecastCard = document.createElement('div'); //create div for forecasts
+      forecastCard.setAttribute('id', 'forecast_card');
+      var forecastArea = document.getElementById('future_forecast');
+      forecastArea.appendChild(forecastCard); //append card to forecast <section>
+      //TODO: fill in forecast data
+      var Title = document.createElement('h2'); //Title = date
+      var forecastTemp = document.createElement('p');//Temp
+      var forecastIcon = document.createElement('p') //Icon
+      var forecastWind = document.createElement('p');// Wind
+      var forecastHumidity = document.createElement('p'); //Humidity
+      var forecastUvi = document.createElement('p'); //UV Index
+    };*/
 };
-displayWeather();
+
+//displayWeather();
 
 //var storeSearchHistory = function (){}
 
