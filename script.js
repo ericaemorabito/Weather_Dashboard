@@ -7,6 +7,8 @@ var apiKeyNew = 'd7313885a60d7c6813f8bd855485255a';
 var lat;
 var lon;
 var city;
+var weatherResultsArea = document.getElementById('weather_results');
+var forecastArea = document.getElementById('future_forecast');
 
 //Search for a city
 searchBtn.addEventListener('click', function () {
@@ -19,6 +21,8 @@ searchBtn.addEventListener('click', function () {
     console.error('You need a search input value!');
     return;
   }
+  weatherResultsArea.innerHTML = '';
+  forecastArea.innerHTML = '';
   //Run the searches
   searchLocationApi(city);
 });
@@ -100,7 +104,6 @@ var displayWeather = function (data) {
   //Create and fill in weather card
   var weatherCard = document.createElement('div'); //create div for current weather
   weatherCard.setAttribute('id', 'weather_card');
-  var weatherResultsArea = document.getElementById('weather_results');
   weatherResultsArea.appendChild(weatherCard); //append weather card to section weather results 
 
   var weatherTitle = document.createElement('h2'); //Title
@@ -150,7 +153,7 @@ var displayWeather = function (data) {
     //Create and fill in forecast data
     var forecastCard = document.createElement('div'); //create forecast card
     forecastCard.setAttribute('class', 'forecast_card');
-    var forecastArea = document.getElementById('future_forecast'); //get the empty future_forecast section in HTML
+
     forecastArea.appendChild(forecastCard); //append forecastCard to future_forecast section
 
     //Create and fill in forecast data
@@ -173,11 +176,9 @@ var displayWeather = function (data) {
   }
 };
 
-var displaySearchHistory = function () {
-  document.querySelectorAll('.city_search_history_btn').addEventListener('click', function () {
-    //get history & display
-  )
-}
-};
-
-//TODO: clear the display area after click away!
+// var displaySearchHistory = function () {
+//   document.querySelectorAll('.city_search_history_btn').addEventListener('click', function () {
+//     //get history & display
+//   )
+// }
+// };
