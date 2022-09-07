@@ -12,7 +12,7 @@ var city;
 searchBtn.addEventListener('click', function () {
   event.preventDefault();
   //Get the value of the search input
-  var city = document.getElementById('search_input').value;
+  city = document.getElementById('search_input').value;
   console.log(city);
   //if nothing in input - error and return
   if (!city) {
@@ -107,6 +107,7 @@ var displayWeather = function (data) {
   var weatherTitle = document.createElement('h2'); //Title
   weatherTitle.textContent = 'Weather in ' + city; //? How can I get this data out easily? It is undefined because it's locally defined.
   var date = document.createElement('p'); //? Date. How can I get the date easily?
+  data.textContent = 'Date Here' //?
   var temp = document.createElement('p');//Temp
   temp.textContent = currentTempData;
   var icon = document.createElement('p') //? How to use this code to display the icon? Set it to src'url+icon code' - Within an <img>
@@ -126,11 +127,11 @@ var displayWeather = function (data) {
   //TODO: set all current data to local storage
   //TODO: create button for city's search history
 
-  //!Loop through 5 days of forecasts
-  for (let i = 0; i < data.daily[5]; i++) {
+  //Get 5 days of forecast data
+  for (let i = 0; i < 5; i++) {
     //Get all forecast data
     var forecastTempData = data.daily[i].temp.day + '°F';
-    var forecastIconData = data.daily[i].weather[i].icon;
+    var forecastIconData = data.daily[i].weather[0].icon;
     var forecastHumidityData = 'Humidity: ' + data.daily[i].humidity + '%';
     var forecastWindData = 'Wind: ' + data.daily[i].wind_speed + ' m/hr';
 
@@ -148,11 +149,11 @@ var displayWeather = function (data) {
 
     //Create and fill in forecast data
     var titleDate = document.createElement('h2'); //?Title = date
-    titleDate.textContent = 'Date Here' //?
+    titleDate.textContent = '01/01/22' //?
     var forecastTemp = document.createElement('p');//Temp
     forecastTemp.textContent = forecastTempData;
     var forecastIcon = document.createElement('p') //?Icon
-    forecastIcon.textContent = 'icon here' //?
+    forecastIcon.textContent = 'Icon' //?
     var forecastWind = document.createElement('p');// Wind
     forecastWind.textContent = forecastWindData;
     var forecastHumidity = document.createElement('p'); //Humidity
