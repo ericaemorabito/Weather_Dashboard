@@ -82,7 +82,7 @@ var searchWeatherApi = function (lat, lon) {
 
 //! In progress
 var displayWeather = function (data) {
-  console.log(data)
+  //console.log(data)
 
   //Get all current Data
   var currentTempData = data.current.temp + '°F';
@@ -92,11 +92,11 @@ var displayWeather = function (data) {
   var currentUviData = 'UV Index: ' + data.current.uvi;
 
   //Testing -> All working
-  console.log(currentTempData)
-  console.log(currentWindData)
-  console.log(currentIconData)
-  console.log(currentHumidityData)
-  console.log(currentUviData)
+  // console.log(currentTempData)
+  // console.log(currentWindData)
+  // console.log(currentIconData)
+  // console.log(currentHumidityData)
+  // console.log(currentUviData)
 
   //Create and fill in weather card
   var weatherCard = document.createElement('div'); //create div for current weather
@@ -126,41 +126,44 @@ var displayWeather = function (data) {
   //TODO: set all current data to local storage
   //TODO: create button for city's search history
 
-  //Get all forecast data
-  var forecastTempData = data.daily[0].temp.day + '°F';
-  var forecastIconData = data.daily[0].weather[0].icon;
-  var forecastHumidityData = 'Humidity: ' + data.daily[0].humidity + '%';
-  var forecastWindData = 'Wind: ' + data.daily[0].wind_speed + ' m/hr';
+  //!Loop through 5 days of forecasts
+  for (let i = 0; i < data.daily[5]; i++) {
+    //Get all forecast data
+    var forecastTempData = data.daily[i].temp.day + '°F';
+    var forecastIconData = data.daily[i].weather[i].icon;
+    var forecastHumidityData = 'Humidity: ' + data.daily[i].humidity + '%';
+    var forecastWindData = 'Wind: ' + data.daily[i].wind_speed + ' m/hr';
 
-  //Test - all working
-  console.log(forecastTempData);
-  console.log(forecastIconData);
-  console.log(forecastHumidityData);
-  console.log(forecastWindData);
+    //Test --> all working with index [0]
+    // console.log(forecastTempData);
+    // console.log(forecastIconData);
+    // console.log(forecastHumidityData);
+    // console.log(forecastWindData);
 
-  //TODO: Create and fill in forecast data
-  var forecastCard = document.createElement('div'); //create forecast card
-  forecastCard.setAttribute('class', 'forecast_card');
-  var forecastArea = document.getElementById('future_forecast'); //get the empty future_forecast section in HTML
-  forecastArea.appendChild(forecastCard); //append forecastCard to future_forecast section
+    //Create and fill in forecast data
+    var forecastCard = document.createElement('div'); //create forecast card
+    forecastCard.setAttribute('class', 'forecast_card');
+    var forecastArea = document.getElementById('future_forecast'); //get the empty future_forecast section in HTML
+    forecastArea.appendChild(forecastCard); //append forecastCard to future_forecast section
 
-  //TODO: fill in forecast data
-  var titleDate = document.createElement('h2'); //?Title = date
-  titleDate.textContent = 'Date Here' //?
-  var forecastTemp = document.createElement('p');//Temp
-  forecastTemp.textContent = forecastTempData;
-  var forecastIcon = document.createElement('p') //?Icon
-  forecastIcon.textContent = 'icon here' //?
-  var forecastWind = document.createElement('p');// Wind
-  forecastWind.textContent = forecastWindData;
-  var forecastHumidity = document.createElement('p'); //Humidity
-  forecastHumidity.textContent = forecastHumidityData;
+    //Create and fill in forecast data
+    var titleDate = document.createElement('h2'); //?Title = date
+    titleDate.textContent = 'Date Here' //?
+    var forecastTemp = document.createElement('p');//Temp
+    forecastTemp.textContent = forecastTempData;
+    var forecastIcon = document.createElement('p') //?Icon
+    forecastIcon.textContent = 'icon here' //?
+    var forecastWind = document.createElement('p');// Wind
+    forecastWind.textContent = forecastWindData;
+    var forecastHumidity = document.createElement('p'); //Humidity
+    forecastHumidity.textContent = forecastHumidityData;
 
-  //TODO: for loop appending all the data for INDEX 0
-  var forecastInfo = [titleDate, forecastTemp, forecastIcon, forecastWind, forecastHumidity];
-  for (let i = 0; i < forecastInfo.length; i++) {
-    forecastCard.appendChild(forecastInfo[i]);
-  };
+    //Loop through --> appending all the data to forecastCard
+    var forecastInfo = [titleDate, forecastTemp, forecastIcon, forecastWind, forecastHumidity];
+    for (let i = 0; i < forecastInfo.length; i++) {
+      forecastCard.appendChild(forecastInfo[i]);
+    };
+  }
 };
 
 //displayWeather();
