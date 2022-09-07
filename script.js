@@ -80,7 +80,6 @@ var searchWeatherApi = function (lat, lon) {
     })
 };
 
-//! In progress
 var displayWeather = function (data) {
   //console.log(data)
 
@@ -124,8 +123,15 @@ var displayWeather = function (data) {
     weatherCard.appendChild(currentWeatherInfo[i])
   };
 
-  //TODO: set all current data to local storage
-  //TODO: create button for city's search history
+  //! Set all current data to local storage with city name
+  localStorage.setItem(city, data);
+
+  //Create button for city's search history
+  var citySearchHistoryBtn = document.createElement('button');
+  var searchHistory = document.getElementById('search_history');
+  searchHistory.appendChild(citySearchHistoryBtn);
+  citySearchHistoryBtn.textContent = city;
+  citySearchHistoryBtn.setAttribute('class', 'city_search_history_btn');
 
   //Get 5 days of forecast data
   for (let i = 0; i < 5; i++) {
@@ -167,8 +173,11 @@ var displayWeather = function (data) {
   }
 };
 
-//displayWeather();
+var displaySearchHistory = function () {
+  document.querySelectorAll('.city_search_history_btn').addEventListener('click', function () {
+    //get history & display
+  )
+}
+};
 
-//var storeSearchHistory = function (){}
-
-//var displaySearchHistory = function(){}
+//TODO: clear the display area after click away!

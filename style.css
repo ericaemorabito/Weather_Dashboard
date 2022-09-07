@@ -34,6 +34,13 @@ h1 {
   width: 30%;
 }
 
+.city_search_history_btn {
+  color: var(--sunset-orange);
+  padding: 1.5% 10% 1.5% 10%;
+  margin: 10%;
+
+}
+
 #display_side {
   display: flex;
   flex-direction: column;
@@ -41,7 +48,6 @@ h1 {
   background-color: var(--dark-blue);
   /*background-image: url('https://source.unsplash.com/1600x900/?sky');*/
   height: 100vh;
-
   background-image: url('https://source.unsplash.com/hgGplX3PFBg');
   background-size: 100% 100vh;
   background-repeat: no-repeat;
