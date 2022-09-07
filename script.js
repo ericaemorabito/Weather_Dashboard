@@ -97,7 +97,7 @@ var displayWeather = function (data) {
   //Testing -> All working
   // console.log(currentTempData)
   // console.log(currentWindData)
-  // console.log(currentIconData)
+  //console.log(currentIconData)
   // console.log(currentHumidityData)
   // console.log(currentUviData)
 
@@ -112,7 +112,9 @@ var displayWeather = function (data) {
   data.textContent = 'Date Here' //?
   var temp = document.createElement('p');//Temp
   temp.textContent = currentTempData;
-  var icon = document.createElement('p') //? How to use this code to display the icon? Set it to src'url+icon code' - Within an <img>
+  var icon = document.createElement('img');
+  icon.src = 'https://openweathermap.org/img/wn/' + currentIconData + '.png';
+  icon.setAttribute('id', 'current_icon');
   var wind = document.createElement('p');// Wind
   wind.textContent = currentWindData;
   var humidity = document.createElement('p'); //Humidity
@@ -146,7 +148,7 @@ var displayWeather = function (data) {
 
     //Test --> all working with index [0]
     // console.log(forecastTempData);
-    // console.log(forecastIconData);
+    console.log(forecastIconData);
     // console.log(forecastHumidityData);
     // console.log(forecastWindData);
 
@@ -161,8 +163,9 @@ var displayWeather = function (data) {
     titleDate.textContent = '01/01/22' //?
     var forecastTemp = document.createElement('p');//Temp
     forecastTemp.textContent = forecastTempData;
-    var forecastIcon = document.createElement('p') //?Icon
-    forecastIcon.textContent = 'Icon' //?
+    var forecastIcon = document.createElement('img');
+    forecastIcon.src = 'https://openweathermap.org/img/wn/' + forecastIconData + '.png';
+    forecastIcon.setAttribute('class', 'forecast_icons');
     var forecastWind = document.createElement('p');// Wind
     forecastWind.textContent = forecastWindData;
     var forecastHumidity = document.createElement('p'); //Humidity
