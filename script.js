@@ -62,6 +62,7 @@ var searchLocationApi = function (city) {
     });
 }
 
+//Run search for weather results
 var searchWeatherApi = function (lat, lon) {
   var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + apiKeyTry;
 
@@ -85,21 +86,12 @@ var searchWeatherApi = function (lat, lon) {
 };
 
 var displayWeather = function (data) {
-  //console.log(data)
-
   //Get all current Data
   var currentTempData = data.current.temp + '°F';
   var currentIconData = data.current.weather[0].icon;
   var currentWindData = 'Wind: ' + data.current.wind_speed + ' m/hr';
   var currentHumidityData = 'Humidity: ' + data.current.humidity + '%';
   var currentUviData = 'UV Index: ' + data.current.uvi;
-
-  //Testing -> All working
-  // console.log(currentTempData)
-  // console.log(currentWindData)
-  //console.log(currentIconData)
-  // console.log(currentHumidityData)
-  // console.log(currentUviData)
 
   //Create and fill in weather card
   var weatherCard = document.createElement('div'); //create div for current weather
@@ -122,6 +114,15 @@ var displayWeather = function (data) {
   var uvIndex = document.createElement('p'); //UV Index
   uvIndex.textContent = currentUviData;
 
+  //UV Index colors based on conditions
+  if (data.current.uvi < 2) {
+    uvIndex.setAttribute('class', 'favorable');
+  } else if (data.current.uvi > 2 && data.current.uvi < 8) {
+    uvIndex.setAttribute('class', 'moderate');
+  } else {
+    uvIndex.setAttribute('class', 'severe');
+  };
+
   //Appends each block of information to the weatherCard
   var currentWeatherInfo = [weatherTitle, date, temp, icon, wind, humidity, uvIndex]
   for (let i = 0; i < currentWeatherInfo.length; i++) {
@@ -129,7 +130,7 @@ var displayWeather = function (data) {
   };
 
   //! Set all current data to local storage with city name
-  localStorage.setItem(city, data);
+  localStorage.setItem(city, city);
 
   //Create button for city's search history
   var citySearchHistoryBtn = document.createElement('button');
@@ -140,23 +141,15 @@ var displayWeather = function (data) {
 
   //Get 5 days of forecast data
   for (let i = 0; i < 5; i++) {
-    //Get all forecast data
     var forecastTempData = data.daily[i].temp.day + '°F';
     var forecastIconData = data.daily[i].weather[0].icon;
     var forecastHumidityData = 'Humidity: ' + data.daily[i].humidity + '%';
     var forecastWindData = 'Wind: ' + data.daily[i].wind_speed + ' m/hr';
 
-    //Test --> all working with index [0]
-    // console.log(forecastTempData);
-    console.log(forecastIconData);
-    // console.log(forecastHumidityData);
-    // console.log(forecastWindData);
-
-    //Create and fill in forecast data
-    var forecastCard = document.createElement('div'); //create forecast card
+    //Create and append forecast card <div>
+    var forecastCard = document.createElement('div');
     forecastCard.setAttribute('class', 'forecast_card');
-
-    forecastArea.appendChild(forecastCard); //append forecastCard to future_forecast section
+    forecastArea.appendChild(forecastCard);
 
     //Create and fill in forecast data
     var titleDate = document.createElement('h2'); //?Title = date
@@ -171,7 +164,7 @@ var displayWeather = function (data) {
     var forecastHumidity = document.createElement('p'); //Humidity
     forecastHumidity.textContent = forecastHumidityData;
 
-    //Loop through --> appending all the data to forecastCard
+    //Loop through data --> appending all the data to forecastCard
     var forecastInfo = [titleDate, forecastTemp, forecastIcon, forecastWind, forecastHumidity];
     for (let i = 0; i < forecastInfo.length; i++) {
       forecastCard.appendChild(forecastInfo[i]);
@@ -179,9 +172,6 @@ var displayWeather = function (data) {
   }
 };
 
-// var displaySearchHistory = function () {
-//   document.querySelectorAll('.city_search_history_btn').addEventListener('click', function () {
-//     //get history & display
-//   )
-// }
-// };
+//! LOCAL STORAGE
+historyBtn = document.querySelectorAll('.city_search_history_btn');
+historyBtn.addEventListener('click', retrie);

@@ -97,3 +97,20 @@ h2 {
   padding: 0px;
   font-size: 1.2em;
 }
+
+/* UV Index's Colors */
+.favorable {
+
+  text-decoration: underline;
+  text-decoration-color: green;
+}
+
+.moderate {
+  text-decoration: underline;
+  text-decoration-color: yellow;
+}
+
+.severe {
+  text-decoration: underline;
+  text-decoration-color: red;
+}
