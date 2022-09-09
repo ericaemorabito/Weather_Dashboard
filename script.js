@@ -131,28 +131,6 @@ var displayWeather = function (data) {
     weatherCard.appendChild(currentWeatherInfo[i])
   };
 
-  //Create button for city's search history
-  var citySearchHistoryBtn = document.createElement('button');
-  var searchHistory = document.getElementById('search_history');
-  searchHistory.appendChild(citySearchHistoryBtn);
-  citySearchHistoryBtn.textContent = city;
-  citySearchHistoryBtn.setAttribute('class', 'city_search_history_btn');
-  citySearchHistoryBtn.setAttribute('id', city);
-
-  // Setting city to local storage
-  localStorage.setItem(city, city);
-
-  //LOCAL STORAGE --> when button clicked, clear area, get city value, run search
-  citySearchHistoryBtn.addEventListener('click', function (event) {
-    weatherResultsArea.innerHTML = '';
-    forecastArea.innerHTML = '';
-    var localStorageKey = event.target.getAttribute('id'); //Gets the id value of the button clicked = city
-    console.log(localStorageKey);
-    var localStorageValue = localStorage.getItem(localStorageKey); //Gets the value = city
-    city = localStorageValue; //city now equals the new city from LS
-    searchLocationApi(localStorageValue);
-  });
-
   //Get 5 days of forecast data
   for (let i = 0; i < 5; i++) {
     var forecastTempData = data.daily[i].temp.day + '°F';
@@ -184,4 +162,33 @@ var displayWeather = function (data) {
       forecastCard.appendChild(forecastInfo[i]);
     };
   };
+
+  //Search History Button
+  //If Button already exists, don't create, else create button
+  if (document.getElementById(city) !== null) {
+    console.log("The element exists");
+  }
+  else {
+    //Create button for city's search history
+    var citySearchHistoryBtn = document.createElement('button');
+    var searchHistory = document.getElementById('search_history');
+    searchHistory.appendChild(citySearchHistoryBtn);
+    citySearchHistoryBtn.textContent = city;
+    citySearchHistoryBtn.setAttribute('class', 'city_search_history_btn');
+    citySearchHistoryBtn.setAttribute('id', city);
+  };
+
+  // Setting city to local storage
+  localStorage.setItem(city, city);
+
+  //LOCAL STORAGE --> when button clicked, clear area, get city value, run search
+  citySearchHistoryBtn.addEventListener('click', function (event) {
+    weatherResultsArea.innerHTML = '';
+    forecastArea.innerHTML = '';
+    var localStorageKey = event.target.getAttribute('id'); //Gets the id value of the button clicked = city
+    console.log(localStorageKey);
+    var localStorageValue = localStorage.getItem(localStorageKey); //Gets the value = city
+    city = localStorageValue; //city now equals the new city from storage
+    searchLocationApi(localStorageValue);
+  });
 };
