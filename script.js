@@ -9,7 +9,7 @@ var lon;
 var city;
 var weatherResultsArea = document.getElementById('weather_results');
 var forecastArea = document.getElementById('future_forecast');
-//!var historyBtn = document.querySelectorAll('.city_search_history_btn');
+var dayJsObject = dayjs();
 
 //Search for a city
 searchBtn.addEventListener('click', function () {
@@ -30,7 +30,7 @@ searchBtn.addEventListener('click', function () {
 
 //Run search for lat and long
 var searchLocationApi = function (city) {
-  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKeyNew;
+  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKeyNew; //was using apiKeyNew
 
   fetch(locationUrl)
     .then(function (response) {
@@ -102,8 +102,8 @@ var displayWeather = function (data) {
 
   var weatherTitle = document.createElement('h2'); //Title
   weatherTitle.textContent = 'Weather in ' + city;
-  var date = document.createElement('p'); //? Date. How can I get the date easily?
-  data.textContent = 'Date Here' //?
+  var date = document.createElement('p');
+  date.textContent = dayJsObject.format('MMM D');
   var temp = document.createElement('p');//Temp
   temp.textContent = currentTempData;
   var icon = document.createElement('img');
@@ -144,8 +144,8 @@ var displayWeather = function (data) {
     forecastArea.appendChild(forecastCard);
 
     //Create and fill in forecast data
-    var titleDate = document.createElement('h2'); //?Title = date
-    titleDate.textContent = '01/01/22' //?
+    var titleDate = document.createElement('h2');
+    titleDate.textContent = dayjs().add(i + 1, 'day').format('MMM D');
     var forecastTemp = document.createElement('p');//Temp
     forecastTemp.textContent = forecastTempData;
     var forecastIcon = document.createElement('img');
