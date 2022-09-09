@@ -9,6 +9,7 @@ var lon;
 var city;
 var weatherResultsArea = document.getElementById('weather_results');
 var forecastArea = document.getElementById('future_forecast');
+//!var historyBtn = document.querySelectorAll('.city_search_history_btn');
 
 //Search for a city
 searchBtn.addEventListener('click', function () {
@@ -60,7 +61,7 @@ var searchLocationApi = function (city) {
     .catch(function (error) {
       console.log(error);
     });
-}
+};
 
 //Run search for weather results
 var searchWeatherApi = function (lat, lon) {
@@ -85,6 +86,7 @@ var searchWeatherApi = function (lat, lon) {
     })
 };
 
+//Create, append, and fill in all elements to display the data
 var displayWeather = function (data) {
   //Get all current Data
   var currentTempData = data.current.temp + '°F';
@@ -99,7 +101,7 @@ var displayWeather = function (data) {
   weatherResultsArea.appendChild(weatherCard); //append weather card to section weather results 
 
   var weatherTitle = document.createElement('h2'); //Title
-  weatherTitle.textContent = 'Weather in ' + city; //? How can I get this data out easily? It is undefined because it's locally defined.
+  weatherTitle.textContent = 'Weather in ' + city;
   var date = document.createElement('p'); //? Date. How can I get the date easily?
   data.textContent = 'Date Here' //?
   var temp = document.createElement('p');//Temp
@@ -129,15 +131,24 @@ var displayWeather = function (data) {
     weatherCard.appendChild(currentWeatherInfo[i])
   };
 
-  //! Set all current data to local storage with city name
-  localStorage.setItem(city, city);
-
   //Create button for city's search history
   var citySearchHistoryBtn = document.createElement('button');
   var searchHistory = document.getElementById('search_history');
   searchHistory.appendChild(citySearchHistoryBtn);
+
   citySearchHistoryBtn.textContent = city;
   citySearchHistoryBtn.setAttribute('class', 'city_search_history_btn');
+  citySearchHistoryBtn.setAttribute('id', city);
+
+  //! Set the city name to storage
+  localStorage.setItem(city, city);
+
+  //! LOCAL STORAGE --> when button clicked, log to the console 'clicked!', then run 
+  citySearchHistoryBtn.addEventListener('click', function () {
+    console.log('Search History Button Clicked');
+    // var searchHistoryValue = localStorage.getItem(city);
+    // searchLocationApi(city);
+  });
 
   //Get 5 days of forecast data
   for (let i = 0; i < 5; i++) {
@@ -169,9 +180,5 @@ var displayWeather = function (data) {
     for (let i = 0; i < forecastInfo.length; i++) {
       forecastCard.appendChild(forecastInfo[i]);
     };
-  }
+  };
 };
-
-//! LOCAL STORAGE
-historyBtn = document.querySelectorAll('.city_search_history_btn');
-historyBtn.addEventListener('click', retrie);
