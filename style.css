@@ -11,6 +11,13 @@ main {
   font-family: 'Lato', sans-serif;
 }
 
+/* Search Side */
+#search_side {
+  text-align: center;
+  background-color: var(--dark-blue);
+  width: 30%;
+}
+
 h1 {
   color: var(--white);
   margin-top: 55px;
@@ -28,12 +35,6 @@ h1 {
   background-color: var(--sunset-orange);
 }
 
-#search_side {
-  text-align: center;
-  background-color: var(--dark-blue);
-  width: 30%;
-}
-
 .city_search_history_btn {
   color: var(--sunset-orange);
   padding: 1.5% 10% 1.5% 10%;
@@ -41,6 +42,7 @@ h1 {
 
 }
 
+/* Display Weather Results Side */
 #display_side {
   display: flex;
   flex-direction: column;
@@ -50,12 +52,17 @@ h1 {
   height: 100vh;
   background-image: url('https://source.unsplash.com/hgGplX3PFBg');
   background-size: 100% 100vh;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-position: 50%;
 
 }
 
-/*Area for Current Weather Card */
+h2 {
+  padding: 0px;
+  font-size: 1.2em;
+}
+
+/*Current Weather Div */
 #weather_results {
   font-size: 1.5em;
   display: flex;
@@ -68,20 +75,19 @@ h1 {
 #weather_card {
   color: white;
   background: var(--dark-blue);
-  /* background: #000000d0; */
   width: fit-content;
   padding: 22px;
   border-radius: 10%;
 }
 
-/* Area for forecast cards */
+/* Forecast Card Div */
 #future_forecast {
   display: flex;
   justify-content: space-around;
   margin-top: 45px;
 }
 
-/* Displayed forecast */
+/* Forecast Cards */
 .forecast_card {
   color: white;
   background: var(--dark-blue);
@@ -93,14 +99,8 @@ h1 {
   border-radius: 10%;
 }
 
-h2 {
-  padding: 0px;
-  font-size: 1.2em;
-}
-
-/* UV Index's Colors */
+/* UV Index Colors */
 .favorable {
-
   text-decoration: underline;
   text-decoration-color: green;
 }
@@ -113,4 +113,35 @@ h2 {
 .severe {
   text-decoration: underline;
   text-decoration-color: red;
+}
+
+/* Responsiveness */
+
+/* Phones and smaller  */
+
+@media only screen and (max-width: 600px) {
+
+  main,
+  #search_side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #search_side {
+    width: 100vh;
+  }
+
+  #display_side {
+    width: 100vh;
+  }
+}
+
+@media screen and (max-width: 997px) {
+  #future_forecast {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

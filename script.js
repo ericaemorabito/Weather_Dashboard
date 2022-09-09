@@ -1,5 +1,5 @@
 var searchBtn = document.getElementById('search_btn');
-var apiKey1 = '3d47432ac7c1ab60b051887d54809883';
+//var apiKey1 = '3d47432ac7c1ab60b051887d54809883';
 //var apiKey2 = '6044df7e3d35bf2ed292ff3acf2fe4d5';
 //var apiKey3 = 'bcc18f73623f3ffe4a20dc2347f8d70b';
 var apiKeyTry = '6071c23bf014278d29b48f559c2f9755';
@@ -15,7 +15,8 @@ var dayJsObject = dayjs();
 searchBtn.addEventListener('click', function () {
   event.preventDefault();
   //Get the value of the search input
-  city = document.getElementById('search_input').value;
+  var inputValue = document.getElementById('search_input').value
+  city = inputValue;
   console.log(city);
   //if nothing in input - error and return
   if (!city) {
@@ -24,13 +25,14 @@ searchBtn.addEventListener('click', function () {
   }
   weatherResultsArea.innerHTML = '';
   forecastArea.innerHTML = '';
+  inputValue.value = '';
   //Run the searches
   searchLocationApi(city);
 });
 
 //Run search for lat and long
 var searchLocationApi = function (city) {
-  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKeyNew; //was using apiKeyNew
+  locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKeyNew;
 
   fetch(locationUrl)
     .then(function (response) {
