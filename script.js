@@ -15,8 +15,8 @@ var dayJsObject = dayjs();
 searchBtn.addEventListener('click', function () {
   event.preventDefault();
   //Get the value of the search input
-  var inputValue = document.getElementById('search_input').value
-  city = inputValue;
+  var inputValue = document.getElementById('search_input');
+  city = inputValue.value;
   console.log(city);
   //if nothing in input - error and return
   if (!city) {
