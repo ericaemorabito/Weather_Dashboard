@@ -135,19 +135,22 @@ var displayWeather = function (data) {
   var citySearchHistoryBtn = document.createElement('button');
   var searchHistory = document.getElementById('search_history');
   searchHistory.appendChild(citySearchHistoryBtn);
-
   citySearchHistoryBtn.textContent = city;
   citySearchHistoryBtn.setAttribute('class', 'city_search_history_btn');
   citySearchHistoryBtn.setAttribute('id', city);
 
-  //! Set the city name to storage
+  // Setting city to local storage
   localStorage.setItem(city, city);
 
-  //! LOCAL STORAGE --> when button clicked, log to the console 'clicked!', then run 
-  citySearchHistoryBtn.addEventListener('click', function () {
-    console.log('Search History Button Clicked');
-    // var searchHistoryValue = localStorage.getItem(city);
-    // searchLocationApi(city);
+  //LOCAL STORAGE --> when button clicked, clear area, get city value, run search
+  citySearchHistoryBtn.addEventListener('click', function (event) {
+    weatherResultsArea.innerHTML = '';
+    forecastArea.innerHTML = '';
+    var localStorageKey = event.target.getAttribute('id'); //Gets the id value of the button clicked = city
+    console.log(localStorageKey);
+    var localStorageValue = localStorage.getItem(localStorageKey); //Gets the value = city
+    city = localStorageValue; //city now equals the new city from LS
+    searchLocationApi(localStorageValue);
   });
 
   //Get 5 days of forecast data
